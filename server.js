@@ -33,6 +33,9 @@ function clientConnected(socket){
         socket.broadcast.emit('system message' , 'User <b>' + socket.nickname + '</b> has joined the chat-room.');
         updateConnectedUsers();
     });
+    // socket.on('is typing', function(data){
+    //     socket.broadcast.emit('typing', {nickname: data.nickname});
+    //    });
 }
 
 function sendMessage(message){
@@ -46,3 +49,4 @@ function updateConnectedUsers(){
     }
     io.sockets.emit('update current users' , nicknames);
 }
+

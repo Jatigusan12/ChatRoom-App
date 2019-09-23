@@ -29,6 +29,7 @@ $(function(){
         // Special characters that are not accepted
         var forbiddenCharacters = /[<>!|/\\\[\]{}()='?,.;.*+ºª^~´`]/;
 
+        
         // Only accept the nickname if it isn't 'empty' and if it doesn't have certain special characters
         if ( (nn != '') && !forbiddenCharacters.test(nn) ){
             // Associate the nickname to the socket
@@ -39,7 +40,7 @@ $(function(){
             $chatroomArea.show();
 
             // Display a 'welcoming' message
-            $chat.append('<p class="systemMessage" ><i>Welcome <b>' + socket.nickname + '</b>! To communicate with the other users, write your message in the <b>Text Area</b> and press \'<b>ENTER</b>\' to send it!</i></p>');
+            $chat.append('<p class="systemMessage" ><i>Welcome <b>' + socket.nickname + '</b>! Press \'<b>ENTER</b>\' to send it!</i></p>');
 
             // Notify the server that the new user chose a nickname
             socket.emit('new client nickname' , socket.nickname);
@@ -67,20 +68,18 @@ $(function(){
     // When receiving a message from the server, append it to the chat div
     socket.on('new message' , function(usermessage){
         // beep.play();    // Play a beep
-
-        var $msg = $('<p class="chatMessage">');
-        var $msgNickname = $('<b>');
-        var $msgContent = $('<text>');
-        $msgNickname.append(usermessage.nickname + ':  ');
-        $msgContent.text(usermessage.content);
-        $msg.append($msgNickname);
-        $msg.append($msgContent);
-
-        $chat.append($msg);
+        if (usermessage.nickname == socket.nickname) {
+            $chat.append("<p class='chatMessage' style='float:right;'>" + usermessage.content +" <br>" + socket.nickname + "</p>")
+        }else{
+            $chat.append("<p class='chatMessage' id='othersMessage'>" + socket.nickname + ": " + usermessage.content + "</p>")
+        }
+        $("#chat").scrollTop($("#chat")[0].scrollHeight)
+        
 
         // Auto scroll to the bottom of the chat
-        $("#chat").prop({ scrollTop: $("#chat").prop("scrollHeight") });
+        // $("#chat").prop({ scrollTop: $("#chat").prop("scrollHeight") });
     });
+
 
     // Update current users
     socket.on('update current users' , function(nicknames){
@@ -97,11 +96,8 @@ $(function(){
     // System message ; display it
     socket.on('system message' , function(message){
         // beep.play(); // Play a bee
-        if(message.$nickname == nicknames){
-            $chat.append('<p class="systemMessage" style="margin-right: 50%;" ><i>' + message + '</i></p>');
-        }else{
-            $chat.append('<p class="systemMessage" style="margin-left: 50%;" ><i>' + message + '</i></p>');
-        }
+            $chat.append('<p class="systemMessage"><i>' + message + '</i></p>');
+
         // Auto scroll to the bottom of the chat
         $("#chat").prop({ scrollTop: $("#chat").prop("scrollHeight") });
     });

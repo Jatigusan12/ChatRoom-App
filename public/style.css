@@ -49,9 +49,9 @@
     font-size: 16px;
 }
 
-#userMessage1{
+/* #userMessage1{
     margin-right: 50%;
-}
+} */
 
 /*******************************/
 /*     Log-In Area Styling     */
@@ -82,7 +82,8 @@
     background-color: whitesmoke;
     border: 2px solid black;
     border-radius: 5px;
-    width: 97%;
+    width: 17%;
+    
 }
 
 .chatMessage:hover {
@@ -176,4 +177,10 @@ label {
 
 body {
     background-color: pink;
+}
+/***************************/
+/*     Send Messages       */
+/***************************/
+#ownMessage{
+    margin-right: 50%;
 }
