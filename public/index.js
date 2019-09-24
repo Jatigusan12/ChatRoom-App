@@ -15,7 +15,7 @@ $(function(){
     var $connectedUsers = $('#connectedUsers');
 
     $chatroomArea.hide();   // Chatroom is not visible before choosing a nickname
-
+    $chat.hide();
         // var beep = new Audio('beep.mp3');
         // beep.volume = 0.03;
 
@@ -38,6 +38,7 @@ $(function(){
             // Hide the login area and display the chatroom itself
             $loginArea.hide();
             $chatroomArea.show();
+            $chat.show();
 
             // Display a 'welcoming' message
             $chat.append('<p class="systemMessage" ><i>Welcome <b>' + socket.nickname + '</b>! Press \'<b>ENTER</b>\' to send it!</i></p>');
@@ -69,9 +70,9 @@ $(function(){
     socket.on('new message' , function(usermessage){
         // beep.play();    // Play a beep
         if (usermessage.nickname == socket.nickname) {
-            $chat.append("<p class='chatMessage' style='float:right;'>" + usermessage.content +" <br>" + socket.nickname + "</p>")
+            $chat.append("<p class='chatMessage' id='ownMessage' >" + socket.nickname +" :<br> " + usermessage.content + "</p>")
         }else{
-            $chat.append("<p class='chatMessage' id='othersMessage'>" + socket.nickname + ": " + usermessage.content + "</p>")
+            $chat.append("<p class='chatMessage' id='otherMessage' >" + socket.nickname + ": " + usermessage.content + "</p>")
         }
         $("#chat").scrollTop($("#chat")[0].scrollHeight)
         

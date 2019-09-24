@@ -5,7 +5,7 @@ var io = require('socket.io').listen(server);
 
 connectedUsers = [];
 app.use(express.static('public'));
-server.listen(3000);
+server.listen(8182);
 console.log('Server started.');
 
 io.sockets.on('connection' , clientConnected);

@@ -117,6 +117,7 @@
 
 .customForm {
     padding-left: 15px;
+    height: 10%;
 }
 
 #chatroomHeader {
@@ -182,5 +183,9 @@ body {
 /*     Send Messages       */
 /***************************/
 #ownMessage{
-    margin-right: 50%;
+    margin-left: 80%;
+
+}
+#otherMessage{
+    margin-right: 100;
 }
